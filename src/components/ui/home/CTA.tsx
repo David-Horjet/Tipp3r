@@ -9,7 +9,7 @@ const CTA = () => {
           <span className="block">Start accepting crypto donations today.</span>
         </h2>
         <p className="mt-4 text-lg leading-6 text-indigo-200">
-          Join thousands of content creators who are already benefiting from direct crypto donations. It's free to sign up, and you can start receiving donations in minutes.
+          Join thousands of content creators who are already benefiting from direct crypto donations. Its free to sign up, and you can start receiving donations in minutes.
         </p>
         <Link
           href="/signup"
