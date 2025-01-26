@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Menu, Wallet, X } from 'lucide-react'
 import { useAppKit, useAppKitAccount } from '@reown/appkit/react'
-import { abbreviateAddress } from '@/utils/helpers'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -38,10 +37,10 @@ const Header = () => {
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             {
               isConnected && address ? (
-                <button onClick={() => open()} className="ml-3 inline-flex gap-1 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                <Link href={"/dashboard"} className="ml-3 inline-flex gap-1 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
                   <Wallet className="w-8" />
-                  {abbreviateAddress(address)}
-                </button>
+                  Dashboard
+                </Link>
               ) : (
                 <>
                   <button onClick={() => open()} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50">

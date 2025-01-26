@@ -39,7 +39,7 @@ export default function ProfileSetupForm() {
   })
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
-    setIsSubmitting(true)
+    setIsSubmitting(true) 
     try {
       // Here you would typically send the form data to your backend
       console.log(data)
