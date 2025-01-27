@@ -38,6 +38,8 @@ export default function ProfileSetupForm() {
     },
   })
 
+  console.log(errors)
+
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
     setIsSubmitting(true) 
     try {
