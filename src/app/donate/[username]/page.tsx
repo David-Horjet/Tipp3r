@@ -6,11 +6,12 @@ export const metadata: Metadata = {
   description: "Support your favorite content creator with crypto donations.",
 }
 
-interface DonatePageProps {
-  params: { username: string }
-}
+// ✅ Explicitly defining PageProps to ensure params are properly typed
+export default function DonatePage({ params }: { params: { username: string } }) {
+  if (!params || !params.username) {
+    return <div>Error: Invalid username</div>
+  }
 
-export default function DonatePage({ params }: DonatePageProps) {
   return <DonationPage username={params.username} />
 }
 
