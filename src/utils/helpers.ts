@@ -8,3 +8,9 @@ export function abbreviateAddress(
   }
   return `${address.slice(0, startLength)}...${address.slice(-endLength)}`;
 }
+
+export const domain = () => {
+  const origin = window.location.origin;
+  // console.log(origin);
+  return origin;
+};

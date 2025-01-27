@@ -1,12 +1,14 @@
 import type React from "react"
-import { useState } from "react"
 import { Copy, Share2 } from "lucide-react"
 import { toast } from "sonner"
+import { domain } from "@/utils/helpers"
 
 const DonationLink: React.FC = () => {
-  const [username, setUsername] = useState("johndoe") // This would typically come from the user's profile
+  // const [username, setUsername] = useState("johndoe") // This would typically come from the user's profile
 
-  const donationLink = `https://soltip.io/creator/${username}`
+  const creator = "davido"
+
+  const donationLink = `${domain()}/donate/${creator}`
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(donationLink)

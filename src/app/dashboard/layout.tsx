@@ -23,7 +23,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
     open: { x: 0 },
     closed: { x: "-100%" },
   }
-  const { address, isConnected, caipAddress, status, embeddedWalletInfo } = useAppKitAccount()
+  const { address, isConnected} = useAppKitAccount()
 
   // if (!isConnected) {
   //   router.push("/")
