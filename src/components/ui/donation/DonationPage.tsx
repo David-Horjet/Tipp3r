@@ -7,6 +7,7 @@ import DonationForm from "./DonationForm"
 import PaymentMethodSelection from "./PaymentMethodSelection"
 import ConfirmDonation from "./ConfirmDonation"
 import ThankYouMessage from "./ThankYouMessage"
+import Link from "next/link"
 
 type DonationStep = "amount" | "payment" | "confirm" | "success"
 
@@ -34,6 +35,11 @@ export default function DonationPage({ username }: { username: string }) {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
+        <div className="flex py-5 justify-center">
+          <Link href="/" className="flex-shrink-0 flex items-center">
+            <span className="text-2xl font-bold text-indigo-600">Tipp3r</span>
+          </Link>
+        </div>
         <CreatorProfile username={username} />
         <div className="p-6">
           <RecentSupporters />

@@ -6,7 +6,11 @@ export const metadata: Metadata = {
   description: "Support your favorite content creator with crypto donations.",
 }
 
-export default function DonatePage({ params }: { params: { username: string } }) {
+interface DonatePageProps {
+  params: { username: string }
+}
+
+export default function DonatePage({ params }: DonatePageProps) {
   return <DonationPage username={params.username} />
 }
 
