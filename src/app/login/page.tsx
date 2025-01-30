@@ -18,33 +18,32 @@ export default function Login() {
 
   useEffect(() => {
     if (isConnected && address) {
+      async function checkUserProfile(walletAddress: string) {
+        try {
+          const { data, error } = await supabase
+            .from("creators")
+            .select("*")
+            .eq("wallet_address", walletAddress)
+            .single()
+
+          if (error && error.code !== "PGRST116") {
+            console.error("Error fetching user:", error)
+          }
+
+          if (!data) {
+            // No profile exists, redirect to profile setup
+            router.push("/profile-setup")
+          } else {
+            // Profile exists, redirect to dashboard
+            router.push("/dashboard")
+          }
+        } catch (error) {
+          console.error("Error checking profile:", error)
+        }
+      }
       checkUserProfile(address)
     }
-  }, [isConnected, address, checkUserProfile])
-
-  async function checkUserProfile(walletAddress: string) {
-    try {
-      const { data, error } = await supabase
-        .from("creators")
-        .select("*")
-        .eq("wallet_address", walletAddress)
-        .single()
-
-      if (error && error.code !== "PGRST116") {
-        console.error("Error fetching user:", error)
-      }
-
-      if (!data) {
-        // No profile exists, redirect to profile setup
-        router.push("/profile-setup")
-      } else {
-        // Profile exists, redirect to dashboard
-        router.push("/dashboard")
-      }
-    } catch (error) {
-      console.error("Error checking profile:", error)
-    }
-  }
+  }, [isConnected, address, router])
 
   return (
     <div className="min-h-screen w-full flex justify-center items-center bg-indigo-600">

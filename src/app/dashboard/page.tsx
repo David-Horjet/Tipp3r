@@ -7,7 +7,7 @@ import DonationLink from "@/components/ui/dashboard/DonationLink"
 import DonationChart from "@/components/ui/dashboard/DonationChart"
 import WithdrawFunds from "@/components/ui/dashboard/WithdrawFunds"
 import RecentDonations from "@/components/ui/dashboard/RecentDonations"
-import { useAppKitAccount } from "@reown/appkit/react"
+// import { useAppKitAccount } from "@reown/appkit/react"
 
 export default function DashboardPage() {
   const [selectedChart, setSelectedChart] = useState<"weekly" | "monthly">("weekly")

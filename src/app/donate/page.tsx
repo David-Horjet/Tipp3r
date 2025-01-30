@@ -1,5 +1,6 @@
 "use client"
 
+import { Suspense } from 'react'
 import DonationPage from "@/components/ui/donation/DonationPage"
 import { useSearchParams } from 'next/navigation'
 
@@ -12,6 +13,9 @@ export default function DonatePage() {
     return <div>Error: Invalid creator</div>
   }
 
-  return <DonationPage username={creator} />
+  return (
+    <Suspense fallback={<div>Loading creator...</div>}>
+      <DonationPage username={creator} />
+    </Suspense>
+  )
 }
-
