@@ -18,7 +18,7 @@ export default function DonationForm({ onSubmit }: { onSubmit: (amount: number) 
           type="number"
           id="amount"
           name="amount"
-          min="0.002"
+          min="0.000001"
           step="0.002"
           value={amount}
           onChange={(e) => setAmount(Number(e.target.value))}
