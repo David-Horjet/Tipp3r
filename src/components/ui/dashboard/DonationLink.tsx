@@ -2,11 +2,16 @@ import type React from "react"
 import { Copy, Share2 } from "lucide-react"
 import { toast } from "sonner"
 import { domain } from "@/utils/helpers"
+import { useEffect, useState } from "react"
 
-const DonationLink: React.FC = () => {
-  // const [username, setUsername] = useState("johndoe") // This would typically come from the user's profile
+const DonationLink = ({ username, loading }: { username: string, loading: boolean }) => {
+  const [creator, setCreator] = useState("") // This would typically come from the user's profile
 
-  const creator = "davido"
+  useEffect(() => {
+    if (!loading && username) {
+      setCreator(username.toLowerCase())
+    }
+  }, [username])
 
   const donationLink = `${domain()}/donate?creator=${creator}`
 
