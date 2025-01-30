@@ -1,21 +1,34 @@
 "use client"
 
-import { Suspense } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import DonationPage from "@/components/ui/donation/DonationPage"
 import { useSearchParams } from 'next/navigation'
 
 // ✅ Explicitly defining PageProps to ensure params are properly typed
-export default function DonatePage() {
+const DonatePage = () => {
   const searchParams = useSearchParams()
+  const [creator, setCreator] = useState<string | null>(null)
 
-  const creator = searchParams.get('creator')
+  useEffect(() => {
+    const creatorParam = searchParams.get('creator')
+    setCreator(creatorParam)
+  }, [searchParams])
+
   if (!creator) {
     return <div>Error: Invalid creator</div>
   }
 
   return (
-    <Suspense fallback={<div>Loading creator...</div>}>
-      <DonationPage username={creator} />
-    </Suspense>
+    <DonationPage username={creator} />
   )
 }
+
+const DonationPageContent = () => {
+  return (
+    <Suspense fallback={<div>Loading creator...</div>}>
+      <DonatePage />
+    </Suspense>
+  );
+};
+
+export default DonationPageContent;
