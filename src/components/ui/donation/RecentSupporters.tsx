@@ -1,40 +1,40 @@
 import Image from "next/image"
 import sona from "../../../assets/images/donator.jpeg"
-import { useEffect, useState } from "react";
-import { supabase } from "@/config/supabase";
+// import { useEffect, useState } from "react";
+// import { supabase } from "@/config/supabase";
 
 const recentSupporters = [
-  { name: "Alice", amount: "5 USDC", message: "Love your content!" },
+  { name: "Alice", amount: "5 SOL", message: "Love your content!" },
   { name: "Bob", amount: "0.1 SOL", message: "Keep up the great work!" },
-  { name: "Charlie", amount: "10 USDC", message: "You're awesome!" },
+  { name: "Charlie", amount: "10 SOL", message: "You're awesome!" },
 ]
 
-export default function RecentSupporters({ username }: { username: string }) {
-  const [supporters, setSupporters] = useState<{ donor_wallet: string; amount: string; }[]>([])
-  const [loading, setLoading] = useState<boolean>(false)
+export default function RecentSupporters({ wallet_address, loading }: { wallet_address: string, loading: boolean }) {
+  console.log(wallet_address)
+  // const [supporters, setSupporters] = useState<{ donor_wallet: string; amount: string; }[]>([])
+  // const [sloading,] = useState<boolean>(false)
 
-  useEffect(() => {
-    setLoading(true)
-    async function fetchSupporters() {
-      const { data: user, error } = await supabase.from("creators").select("username, wallet_address, bio").eq("username", username.toLowerCase()).single()
-      if (user) {
-        const { data, error } = await supabase.from("donations").select("donor_wallet, amount").eq("creator_wallet", user.wallet_address).limit(5)
-        if (error) {
-          setLoading(false)
-          console.error("Error fetching supporters:", error)
-        } else {
-          setLoading(false)
-          setSupporters(data)
-        }
-      } else {
-        setLoading(false)
-        console.error("Error fetching supporters:", error)
-      }
-    }
+  // useEffect(() => {
+  //   setSLoading(true)
+  //   async function fetchSupporters() {
+  //     try {
+  //       const { data, error } = await supabase.from("donations").select("donor_wallet, amount").eq("creator_wallet", user.wallet_address).limit(5)
+  //       if (error) {
+  //         setSLoading(false)
+  //         console.error("Error fetching supporters:", error)
+  //       } else {
+  //         setSLoading(false)
+  //         setSupporters(data)
+  //       }
+  //     } catch (error) {
+  //       setSLoading(false)
+  //       console.error("Error fetching supporters:", error)
+  //     }
+  //   }
 
-    fetchSupporters()
-  }, [username])
-  if (!supporters && !loading) return <p className="text-black px-6">No recent supporters for this creator...</p>
+  //   fetchSupporters()
+  // }, [username])
+  // if (!supporters && !loading) return <p className="text-black px-6">No recent supporters for this creator...</p>
   return (
     <>
       {loading ? (

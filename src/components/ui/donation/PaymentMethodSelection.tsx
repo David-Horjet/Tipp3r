@@ -16,7 +16,7 @@ export default function PaymentMethodSelection({ onSelect }: { onSelect: (method
       </button>
       <button
         disabled
-        onClick={() => onSelect("fiat")}
+        // onClick={() => onSelect("fiat")}
         className="w-full flex items-center justify-between p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
       >
         <div className="flex items-center text-gray-700">

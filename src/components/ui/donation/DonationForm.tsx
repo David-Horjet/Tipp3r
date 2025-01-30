@@ -12,14 +12,14 @@ export default function DonationForm({ onSubmit }: { onSubmit: (amount: number) 
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
-          Donation Amount (USDC)
+          Donation Amount (SOL)
         </label>
         <input
           type="number"
           id="amount"
           name="amount"
-          min="1"
-          step="0.01"
+          min="0.002"
+          step="0.002"
           value={amount}
           onChange={(e) => setAmount(Number(e.target.value))}
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
