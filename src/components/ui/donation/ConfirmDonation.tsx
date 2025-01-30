@@ -8,10 +8,12 @@ import { useState } from 'react';
 export default function ConfirmDonation({
   amount,
   paymentMethod,
+  wallet_address,
   onConfirm,
 }: {
   amount: number
   paymentMethod: "crypto" | "fiat" | null
+  wallet_address: string
   onConfirm: () => void
 }) {
 
@@ -38,8 +40,8 @@ export default function ConfirmDonation({
         }).add(
           SystemProgram.transfer({
             fromPubkey: wallet,
-            toPubkey: new PublicKey(address), // destination address
-            lamports: 1000,
+            toPubkey: new PublicKey(wallet_address), // destination address
+            lamports: amount * LAMPORTS_PER_SOL,
           })
         );
 
@@ -48,6 +50,7 @@ export default function ConfirmDonation({
 
         // print the Transaction Signature
         console.log(signature);
+        onConfirm()
       }
     } catch (error) {
       setLoading(false)

@@ -80,7 +80,7 @@ export default function DonationPage({ username }: { username: string }) {
           {step === "amount" && <DonationForm onSubmit={handleAmountSubmit} />}
           {step === "payment" && <PaymentMethodSelection onSelect={handlePaymentMethodSelect} />}
           {step === "confirm" && (
-            <ConfirmDonation amount={amount} paymentMethod={paymentMethod} onConfirm={handleConfirmDonation} />
+            <ConfirmDonation amount={amount} wallet_address={creator.wallet_address} paymentMethod={paymentMethod} onConfirm={handleConfirmDonation} />
           )}
           {step === "success" && <ThankYouMessage username={username} />}
         </div>
