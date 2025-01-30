@@ -42,7 +42,7 @@ export default function DonationPage({ username }: { username: string }) {
         </div>
         <CreatorProfile username={username} />
         <div className="p-6">
-          <RecentSupporters />
+          <RecentSupporters username={username} />
           {step === "amount" && <DonationForm onSubmit={handleAmountSubmit} />}
           {step === "payment" && <PaymentMethodSelection onSelect={handlePaymentMethodSelect} />}
           {step === "confirm" && (

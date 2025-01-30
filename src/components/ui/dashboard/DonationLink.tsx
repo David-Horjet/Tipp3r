@@ -8,11 +8,11 @@ const DonationLink: React.FC = () => {
 
   const creator = "davido"
 
-  const donationLink = `${domain()}/donate/${creator}`
+  const donationLink = `${domain()}/donate?creator=${creator}`
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(donationLink)
-    toast.success("Donation link copied to clipboard!")
+    toast.info("Donation link copied to clipboard!")
   }
 
   const shareLink = () => {

@@ -2,17 +2,10 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, Wallet, X } from 'lucide-react'
-import { useAppKit, useAppKitAccount } from '@reown/appkit/react'
+import { Menu, X } from 'lucide-react'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  const { open } = useAppKit()
-
-  const { address, isConnected, caipAddress, status, embeddedWalletInfo } = useAppKitAccount()
-
-  console.log(address, isConnected, caipAddress, status, embeddedWalletInfo)
 
   return (
     <header className="bg-white shadow-sm">
@@ -35,23 +28,11 @@ const Header = () => {
             </Link>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
-            {
-              isConnected && address ? (
-                <Link href={"/dashboard"} className="ml-3 inline-flex gap-1 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                  <Wallet className="w-8" />
-                  Dashboard
-                </Link>
-              ) : (
-                <>
-                  <button onClick={() => open()} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50">
-                    Log in
-                  </button>
-                  <button onClick={() => open()} className="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                    Sign up
-                  </button>
-                </>
-              )
-            }
+            <>
+              <button className="ml-3 inline-flex gap-1 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                <Link href={"/login"}> Log in</Link>
+              </button>
+            </>
           </div>
           <div className="-mr-2 flex items-center sm:hidden">
             <button
@@ -86,9 +67,6 @@ const Header = () => {
             <div className="mt-3 space-y-1">
               <Link href="/login" className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
                 Log in
-              </Link>
-              <Link href="/signup" className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
-                Sign up
               </Link>
             </div>
           </div>

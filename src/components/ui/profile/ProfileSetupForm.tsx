@@ -5,17 +5,22 @@ import { useRouter } from "next/navigation"
 import { useForm, type SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { Upload } from "lucide-react"
 import { toast } from "sonner"
+import { useAppKitAccount } from "@reown/appkit/react"
+import { createClient } from "@supabase/supabase-js"
 import Input from "../Input/Input"
 import Textarea from "../textarea/Textarea"
-import Button from "../buttons/Button"
 import Select from "../select/Select"
+import Button from "../buttons/Button"
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
 
 const formSchema = z.object({
   username: z.string().min(3).max(20),
   bio: z.string().max(160).optional(),
-  profilePicture: z.instanceof(File).optional(),
   preferredToken: z.enum(["SOL", "USDC"]),
 })
 
@@ -23,6 +28,7 @@ type FormSchemaType = z.infer<typeof formSchema>
 
 export default function ProfileSetupForm() {
   const router = useRouter()
+  const { address } = useAppKitAccount() // Get wallet address
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const {
@@ -37,21 +43,32 @@ export default function ProfileSetupForm() {
       preferredToken: "USDC",
     },
   })
-
-  console.log(errors)
+  console.log(errors);
+  
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
-    setIsSubmitting(true) 
-    try {
-      // Here you would typically send the form data to your backend
-      console.log(data)
+    console.log(data)
+    if (!address) {
+      toast.error("Wallet not connected.")
+      return
+    }
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+    setIsSubmitting(true)
+
+    try {
+      const { error } = await supabase.from("creators").insert([
+        {
+          wallet_address: address,
+          username: data.username,
+          bio: data.bio,
+          preferred_token: data.preferredToken,
+        },
+      ])
+
+      if (error) throw error
 
       toast.success("Profile created successfully!")
 
-      // Redirect to dashboard or home page
       router.push("/dashboard")
     } catch (error) {
       console.error("Error setting up profile:", error)
@@ -63,22 +80,17 @@ export default function ProfileSetupForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 text-black">
-      <Input label="Username" {...register("username")}
-      // error={errors.username?.message}
-      />
-      <Textarea label="Bio (Optional)" {...register("bio")}
-      // error={errors.bio?.message}
-      />
-      <div className="mb-4">
+      <Input {...register("username")} placeholder="Username" />
+      <Textarea {...register("bio")} placeholder="Bio (Optional)" />
+      {/* <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-1">Profile Picture (Optional)</label>
         <div className="flex items-center space-x-4">
           <input type="file" accept="image/*" className="hidden" id="profile-picture" {...register("profilePicture")} />
           <Button type="button" variant="outline" onClick={() => document.getElementById("profile-picture")?.click()}>
             <Upload className="mr-2 h-4 w-4" /> Upload Image
           </Button>
-          {/* Display selected file name */}
         </div>
-      </div>
+      </div> */}
       <Select
         label="Preferred Token"
         options={[
@@ -87,10 +99,11 @@ export default function ProfileSetupForm() {
         ]}
         {...register("preferredToken")}
       />
-      <Button type="submit" className="w-full" disabled={isSubmitting}>
-        {isSubmitting ? "Setting up..." : "Complete Profile Setup"}
-      </Button>
+      <div className="flex justify-center">
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Setting up..." : "Complete Profile Setup"}
+        </Button>
+      </div>
     </form>
   )
 }
-

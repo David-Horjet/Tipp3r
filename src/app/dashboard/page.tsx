@@ -7,9 +7,11 @@ import DonationLink from "@/components/ui/dashboard/DonationLink"
 import DonationChart from "@/components/ui/dashboard/DonationChart"
 import WithdrawFunds from "@/components/ui/dashboard/WithdrawFunds"
 import RecentDonations from "@/components/ui/dashboard/RecentDonations"
+import { useAppKitAccount } from "@reown/appkit/react"
 
 export default function DashboardPage() {
   const [selectedChart, setSelectedChart] = useState<"weekly" | "monthly">("weekly")
+  // const { address } = useAppKitAccount()
 
   return (
     <>
@@ -20,7 +22,7 @@ export default function DashboardPage() {
         className="grid grid-cols-1 lg:grid-cols-3 gap-6"
       >
         <div className="lg:col-span-2">
-          <EarningsSummary />
+          <EarningsSummary creatorWallet="address" />
         </div>
         <div>
           <DonationLink />
@@ -32,7 +34,7 @@ export default function DashboardPage() {
           <WithdrawFunds />
         </div>
         <div className="lg:col-span-3">
-          <RecentDonations />
+          <RecentDonations creatorWallet="address" />
         </div>
       </motion.div>
     </>

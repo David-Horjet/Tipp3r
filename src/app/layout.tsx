@@ -3,6 +3,7 @@ import "./globals.css";
 import { Bricolage_Grotesque } from "next/font/google";
 import AppkitProvider from "@/context/AppkitProvider";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/react"
 
 const bricolage_GrotesqueFont = Bricolage_Grotesque({
   weight: ["200", "300", "400", "500", "600", "700", "800"],
@@ -31,6 +32,7 @@ export default function RootLayout({
           richColors
         />
       </body>
+      <Analytics/>
     </html>
   );
 }

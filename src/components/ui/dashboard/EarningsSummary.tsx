@@ -1,22 +1,46 @@
-import type React from "react"
-import { motion } from "framer-motion"
-import { TrendingUp, TrendingDown, Users } from "lucide-react"
+import type React from "react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { TrendingUp, TrendingDown, Users } from "lucide-react";
+import { supabase } from "@/config/supabase";
 
-const EarningsSummary: React.FC = () => {
-  const totalDonations = 1000
-  const recentDonations = 250
-  const percentageChange = 15
+const EarningsSummary: React.FC<{ creatorWallet: string }> = ({ creatorWallet }) => {
+  const [totalDonations, setTotalDonations] = useState<number>(0);
+  const [recentDonations, setRecentDonations] = useState<number>(0);
+  
+  const [percentageChange, setPercentageChange] = useState<number>(0)
+  const [totalSupporters, setTotalSupporters] = useState<number>(0);
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data, error } = await supabase
+        .from("donations")
+        .select("amount, donor_wallet, created_at")
+        .eq("creator_wallet", creatorWallet);
+
+      if (error) {
+        console.error("Error fetching donations:", error);
+        return;
+      }
+
+      const total = data.reduce((sum, d) => sum + d.amount, 0);
+      const lastMonthTotal = data
+        .filter((d) => new Date(d.created_at) >= new Date(new Date().setDate(new Date().getDate() - 30)))
+        .reduce((sum, d) => sum + d.amount, 0);
+
+      setTotalDonations(total);
+      setRecentDonations(lastMonthTotal);
+      setPercentageChange(Number(lastMonthTotal ? ((lastMonthTotal / total) * 100).toFixed(2) : 0));
+      setTotalSupporters(new Set(data.map((d) => d.donor_wallet)).size);
+    };
+
+    fetchData();
+  }, [creatorWallet]);
 
   return (
     <motion.div
       initial="hidden"
       animate="visible"
-      variants={cardVariants}
       transition={{ duration: 0.5 }}
       className="bg-white p-6 rounded-lg shadow-md"
     >
@@ -43,11 +67,10 @@ const EarningsSummary: React.FC = () => {
       </div>
       <div className="mt-4 flex items-center">
         <Users className="text-indigo-500 mr-2" />
-        <span>152 total supporters</span>
+        <span>{totalSupporters} total supporters</span>
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default EarningsSummary
-
+export default EarningsSummary;
