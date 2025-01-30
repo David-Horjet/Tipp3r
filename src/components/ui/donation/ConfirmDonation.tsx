@@ -53,7 +53,8 @@ export default function ConfirmDonation({
         onConfirm()
       }
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
+      console.log(error)
       toast.error("Transaction Failed")
     }
   }
