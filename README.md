@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tipp3r 💸 – A Web3 Creator Donation Platform
 
-## Getting Started
+Tipp3r is a decentralized Web3 donation platform that allows creators to share donation links and receive **SOL** seamlessly. Powered by **Reown AppKit**, Tipp3r simplifies wallet authentication, transactions, and on-ramp/off-ramp services, making it super easy for supporters to tip their favorite creators.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- 🔑 **Seamless Authentication** – Users can log in using their Reown AppKit wallet, social login, or email.
+- 💰 **Instant Donations** – Supporters can send **SOL** directly to a creator's wallet.
+- 🔄 **On-Ramp Support** – Users can easily buy crypto if they don't have SOL.
+- 📜 **Transaction History** – Users can view their recent donations and transaction details.
+- 🛠️ **Built on Solana** – Fast, low-cost transactions.
+
+## 🛠️ Tech Stack
+
+- **Next.js** (React + Server Components)
+- **TypeScript** (Strict typing for reliability)
+- **Solana Web3** (Transaction processing)
+- **Reown AppKit** (Authentication, payments, and wallet services)
+- **Supabase** (Database for storing creator info)
+
+## ⚡ Getting Started
+
+### 1️⃣ Clone the Repository
+
+```sh
+git clone https://github.com/yourusername/tipp3r.git
+cd tipp3r
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2️⃣ Install Dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3️⃣ Set Up Environment Variables
 
-## Learn More
+Create a `.env.local` file in the root directory and add the following:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_REOWN_APP_ID=your_reown_app_id
+NEXT_PUBLIC_REOWN_API_KEY=your_reown_api_key
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4️⃣ Run the Development Server
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```sh
+npm run dev
+```
 
-## Deploy on Vercel
+Your app should now be running at http://localhost:3000 🚀.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 💡 How It Works
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Creator Signup** – Creators register and link their wallet.
+2. **Share Link** – Creators share their unique donation link.
+3. **Supporters Donate** – Anyone can send SOL with just a few clicks.
+4. **Funds Received** – Donations go directly to the creator's wallet.
+
+## 🖥️ Running in Production
+
+To build and start the production server:
+
+```sh
+npm run build
+npm start
+```
+
+## 🔗 API & Transactions
+
+Tipp3r uses Reown AppKit for Web3 transactions. Here's how donations are processed:
+
+1. Fetch the creator's wallet address from Supabase.
+2. Use Reown AppKit's `solana_signAndSendTransaction` method to send SOL.
+3. Wait for the transaction to be confirmed.
+4. Show success message & update transaction history.
+
+## 🎯 Future Improvements
+
+- ✅ Multi-token support (USDC, USDT, etc.)
+- ✅ Creator profiles & analytics
+- ✅ NFT-based membership system
+- ✅ Mobile app version
+
+## 📜 License
+
+This project is open-source under the MIT License.
+
+## 🛠️ Contributing
+
+PRs are welcome! If you'd like to contribute:
+
+1. Fork the repo
+2. Create a new branch
+3. Make your changes
+4. Open a pull request
+
+## 🔗 Connect With Me
+
+- 🐦 Twitter: @YourHandle
+- 👨‍💻 GitHub: YourUsername
+
+💙 Built with love for the Web3 community!
