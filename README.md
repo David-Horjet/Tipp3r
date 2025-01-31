@@ -23,7 +23,7 @@ Tipp3r is a decentralized Web3 donation platform that allows creators to share d
 ### 1️⃣ Clone the Repository
 
 ```sh
-git clone https://github.com/yourusername/tipp3r.git
+git clone https://github.com/David-Horjet/tipp3r.git
 cd tipp3r
 ```
 
