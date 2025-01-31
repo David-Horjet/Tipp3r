@@ -3,13 +3,42 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { TrendingUp, TrendingDown, Users } from "lucide-react";
 import { supabase } from "@/config/supabase";
+import { useAppKitConnection } from '@reown/appkit-adapter-solana/react'
+import { useAppKitAccount } from '@reown/appkit/react'
+import { PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 const EarningsSummary: React.FC<{ creatorWallet: string }> = ({ creatorWallet }) => {
   const [totalDonations, setTotalDonations] = useState<number>(0);
   const [recentDonations, setRecentDonations] = useState<number>(0);
-  
+
   const [percentageChange, setPercentageChange] = useState<number>(0)
   const [totalSupporters, setTotalSupporters] = useState<number>(0);
+
+  const [balance, setBalance] = useState<number>(0);
+
+  const { connection } = useAppKitConnection();
+  const { isConnected, address } = useAppKitAccount()
+
+  // function to get the balance
+  useEffect(() => {
+    if (isConnected && address) {
+      const handleGetBalance = async () => {
+        const wallet = new PublicKey(address);
+        const balance = await connection?.getBalance(wallet);  // get the amount in LAMPORTS
+
+        if (balance) {
+          setBalance(Number(`${balance / LAMPORTS_PER_SOL} SOL`))
+          console.log(`${balance / LAMPORTS_PER_SOL} SOL`);
+        }
+      }
+      handleGetBalance()
+    }
+  }, [])
+
+  console.log(balance);
+  
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +81,7 @@ const EarningsSummary: React.FC<{ creatorWallet: string }> = ({ creatorWallet })
         </div>
         <div className="bg-green-100 p-4 rounded-lg">
           <p className="text-green-600 font-semibold">Recent Donations (30 days)</p>
-          <p className="text-3xl font-bold">${recentDonations}</p>
+          <p className="text-3xl font-bold">${balance}</p>
         </div>
       </div>
       <div className="mt-4 flex items-center">
