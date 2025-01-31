@@ -40,8 +40,7 @@ Create a `.env.local` file in the root directory and add the following:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-NEXT_PUBLIC_REOWN_APP_ID=your_reown_app_id
-NEXT_PUBLIC_REOWN_API_KEY=your_reown_api_key
+NEXT_PUBLIC_PROJECT_ID=your_reown_app_id
 ```
 
 ### 4️⃣ Run the Development Server
@@ -73,7 +72,7 @@ npm start
 Tipp3r uses Reown AppKit for Web3 transactions. Here's how donations are processed:
 
 1. Fetch the creator's wallet address from Supabase.
-2. Use Reown AppKit's `solana_signAndSendTransaction` method to send SOL.
+2. Use Reown AppKit's `sendTransaction` method to send SOL.
 3. Wait for the transaction to be confirmed.
 4. Show success message & update transaction history.
 
@@ -99,7 +98,7 @@ PRs are welcome! If you'd like to contribute:
 
 ## 🔗 Connect With Me
 
-- 🐦 Twitter: @YourHandle
-- 👨‍💻 GitHub: YourUsername
+- 🐦 Twitter: @david_horjet
+- 👨‍💻 GitHub: David-Horjet
 
 💙 Built with love for the Web3 community!
