@@ -63,7 +63,7 @@ export default function ProfileSetupForm() {
         toast.error(`Something went wrong while trying to create profile ${error.message}`);
       };
 
-      toast.success("Profile created successfully!");
+      toast.success("Profile created successfully!")
 
       router.push("/dashboard");
     } catch (error) {
