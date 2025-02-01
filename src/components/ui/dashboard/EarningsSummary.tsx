@@ -11,6 +11,9 @@ const EarningsSummary: React.FC<{ creatorWallet: string }> = ({ creatorWallet })
   const [totalDonations, setTotalDonations] = useState<number>(0);
   const [recentDonations, setRecentDonations] = useState<number>(0);
 
+  console.log(recentDonations);
+  
+
   const [percentageChange, setPercentageChange] = useState<number>(0)
   const [totalSupporters, setTotalSupporters] = useState<number>(0);
 
@@ -33,7 +36,7 @@ const EarningsSummary: React.FC<{ creatorWallet: string }> = ({ creatorWallet })
       }
       handleGetBalance()
     }
-  }, [])
+  }, [address, connection, isConnected])
 
   console.log(balance);
   

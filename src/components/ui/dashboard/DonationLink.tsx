@@ -11,7 +11,7 @@ const DonationLink = ({ username, loading }: { username: string, loading: boolea
     if (!loading && username) {
       setCreator(username.toLowerCase())
     }
-  }, [username])
+  }, [username, loading])
 
   const donationLink = `${domain()}/donate?creator=${creator}`
 
