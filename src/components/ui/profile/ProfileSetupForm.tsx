@@ -1,35 +1,30 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { useForm, type SubmitHandler } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { toast } from "sonner"
-import { useAppKitAccount } from "@reown/appkit/react"
-import { createClient } from "@supabase/supabase-js"
-import Input from "../Input/Input"
-import Textarea from "../textarea/Textarea"
-import Select from "../select/Select"
-import Button from "../buttons/Button"
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { toast } from "sonner";
+import { useAppKitAccount } from "@reown/appkit/react";
+import Input from "../Input/Input";
+import Textarea from "../textarea/Textarea";
+import Select from "../select/Select";
+import Button from "../buttons/Button";
+import { supabase } from "@/config/supabase";
 
 const formSchema = z.object({
   username: z.string().min(3).max(20),
   bio: z.string().max(160).optional(),
   preferredToken: z.enum(["SOL", "USDC"]),
-})
+});
 
-type FormSchemaType = z.infer<typeof formSchema>
+type FormSchemaType = z.infer<typeof formSchema>;
 
 export default function ProfileSetupForm() {
-  const router = useRouter()
-  const { address } = useAppKitAccount() // Get wallet address
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter();
+  const { address } = useAppKitAccount(); // Get wallet address
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
@@ -42,41 +37,44 @@ export default function ProfileSetupForm() {
       bio: "",
       preferredToken: "USDC",
     },
-  })
+  });
   console.log(errors);
-  
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
-    console.log(data)
+    console.log(data);
     if (!address) {
-      toast.error("Wallet not connected.")
-      return
+      toast.error("Wallet not connected.");
+      return;
     }
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     try {
       const { error } = await supabase.from("creators").insert([
         {
           wallet_address: address,
-          username: data.username,
+          username: data.username.toLowerCase(),
           bio: data.bio,
           preferred_token: data.preferredToken,
         },
-      ])
+      ]);
 
-      if (error) throw error
+      if (error) {
+        toast.error(`Something went wrong while trying to create profile ${error.message}`);
+      };
 
-      toast.success("Profile created successfully!")
+      toast.success("Profile created successfully!");
 
-      router.push("/dashboard")
+      router.push("/dashboard");
     } catch (error) {
-      console.error("Error setting up profile:", error)
-      toast.error("There was a problem setting up your profile. Please try again.")
+      console.error("Error setting up profile:", error);
+      toast.error(
+        "There was a problem setting up your profile. Please try again."
+      );
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 text-black">
@@ -105,5 +103,5 @@ export default function ProfileSetupForm() {
         </Button>
       </div>
     </form>
-  )
+  );
 }

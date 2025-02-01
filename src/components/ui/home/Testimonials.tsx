@@ -6,7 +6,7 @@ const testimonials = [
     author: {
       name: 'Sarah Johnson',
       role: 'Twitch Streamer',
-      imageUrl: '/placeholder.svg?height=400&width=400',
+      imageUrl: 'https://i.pinimg.com/736x/36/67/b1/3667b1f46828b9ffc4158a4bf43f746f.jpg',
     },
   },
   {
@@ -14,7 +14,7 @@ const testimonials = [
     author: {
       name: 'Michael Chen',
       role: 'Digital Artist',
-      imageUrl: '/placeholder.svg?height=400&width=400',
+      imageUrl: 'https://i.pinimg.com/736x/c3/6f/57/c36f576d6acafe3fd524d64ebd3a146a.jpg',
     },
   },
   {
@@ -22,7 +22,7 @@ const testimonials = [
     author: {
       name: 'Elena Rodriguez',
       role: 'YouTube Content Creator',
-      imageUrl: '/placeholder.svg?height=400&width=400',
+      imageUrl: 'https://i.pinimg.com/736x/80/62/f3/8062f3386236bd2415f4e2455be15fbd.jpg',
     },
   },
 ]
