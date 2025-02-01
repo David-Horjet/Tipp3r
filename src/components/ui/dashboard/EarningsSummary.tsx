@@ -28,9 +28,11 @@ const EarningsSummary: React.FC<{ creatorWallet: string }> = ({ creatorWallet })
       const handleGetBalance = async () => {
         const wallet = new PublicKey(address);
         const balance = await connection?.getBalance(wallet);  // get the amount in LAMPORTS
+        console.log(balance);
+        
 
         if (balance) {
-          setBalance(Number(`${balance / LAMPORTS_PER_SOL} SOL`))
+          setBalance(Number(`${balance / LAMPORTS_PER_SOL}`))
           console.log(`${balance / LAMPORTS_PER_SOL} SOL`);
         }
       }
@@ -38,7 +40,7 @@ const EarningsSummary: React.FC<{ creatorWallet: string }> = ({ creatorWallet })
     }
   }, [address, connection, isConnected])
 
-  console.log(balance);
+  console.log("balance: ", balance);
   
 
 
@@ -83,7 +85,7 @@ const EarningsSummary: React.FC<{ creatorWallet: string }> = ({ creatorWallet })
           <p className="text-3xl font-bold">${totalDonations}</p>
         </div>
         <div className="bg-green-100 p-4 rounded-lg">
-          <p className="text-green-600 font-semibold">Recent Donations (30 days)</p>
+          <p className="text-green-600 font-semibold">Total Balance</p>
           <p className="text-3xl font-bold">${balance}</p>
         </div>
       </div>
